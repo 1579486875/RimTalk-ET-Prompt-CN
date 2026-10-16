@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>RimTalk - ET 思绪提示词（中文）</name>
+    <author>大赢经直插白皮赢道</author>
+    <packageId>gnh.cn.cys.rimtalk.etprompt.cn</packageId>
+    <modVersion>1.0.1</modVersion>
+    <supportedVersions>
+        <li>1.6</li>
+        <li>1.7</li>
+    </supportedVersions>
+    <modDependencies>
+        <li>
+            <packageId>zruic.expand.thoughts</packageId>
+            <displayName>RimTalk - Expand Thoughts</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/3661175034</steamWorkshopUrl>
+        </li>
+    </modDependencies>
+    <loadAfter>
+        <li>zruic.expand.thoughts</li>
+        <li>cj.rimtalk</li>
+    </loadAfter>
+    <description>[h1]RimTalk - ET 思绪提示词（中文）[/h1]
+用同 defName 覆盖 RimTalk - Expand Thoughts 自带的 ET_ThoughtSummarization，把「对话结束后生成思绪」那次二次 LLM 调用的提示词换成中文版。
+
+[h2]改动内容[/h2]
+[list]
+[*]systemPromptTemplate 全文中文化
+[*]新增规则：text 必须写成角色脑中的心里话，不是总结报告，也不是他/她会说出口的话
+[*]新增规则：想法允许比嘴上更真实、更强烈、更黑暗、更不体面
+[*]新增说明：判断要建立在角色的价值观之上（该价值观由其文化信仰或人格天性定义）
+[/list]
+
+[h2]原理[/h2]
+Expand Thoughts 通过 DefDatabase&lt;ThoughtPromptDef&gt;.GetNamed("ET_ThoughtSummarization") 读取提示词；RimWorld 的 DefDatabase 允许后加载的模组覆盖同名 def（后加载者胜），因此本模组必须 loadAfter 排在它之后。
+
+[h2]注意事项[/h2]
+[list]
+[*]提示词在首次使用时被静态缓存，改动后需要完全重启游戏才生效
+[*]RimTalk 提示词编辑器里的 "ET Thoughts Context" 是另一套东西（注入主对话的条目），与本模组无关
+[*]若 Expand Thoughts 将来改动该 defName，本模组会自然失效（不报错）
+[/list]</description>
+</ModMetaData>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <RimTalk.ExpandThoughts.ThoughtPromptDef MayRequire="zruic.expand.thoughts">
+        <defName>ET_ThoughtSummarization</defName>
+<systemPromptTemplate>你在分析一段RimWorld对话，判断 {pawn_name} 这次交流中留下了（主观想法或看法）。
+结合对话记录和 {pawn_name} 已有的想法，判断 {pawn_name} 有什么新想法，或者改变旧看法。
+判断建立在{pawn_name} 的价值观之上，这套价值观由他/她的文化信仰或人格天性定义，决定他/她"对同一情境的不同看法"。
+规则：
+- 只输出有意义且持久的想法，随便聊两句的就别硬编
+- "about" 只能是："self"、another character's name、"colony"（殖民地/家园）、"ideology"（意识形态）、"memory"（某段记忆）
+- "aspect" 只能是：general、trust、affection、respect、fear、rivalry。没特别指向就用 general。同一个对象的不同维度各自独立共存，各算各的。
+- "sentiment" 只能是：positive（好感）、negative（反感）、neutral（无所谓/中立）如，affection 可以是 positive（喜欢）或 negative（厌恶）；trust 可以是 positive（信任）或 negative（不信任）。同一维度下不同情感方向独立共存。
+- "strength" 是 0.0–1.0，1.0 是可能的最强感受（仅表示强度，方向由 sentiment 表达）
+- 如果某个已有想法的 "about"、"aspect" 和 "sentiment" 完全相同，且会被这次对话改变，则输出更新后的版本
+- "text" 要写成 {pawn_name} 脑中的想法，不是总结报告，也不是他/她会说出口的话。用自然语言，可以用语气词。
+- 想法可以比嘴上更真实、更强烈、黑暗、更不体面，RimWorld 里大部分做的事本来就不一定光彩。
+- 如果对话只是琐碎的闲聊，返回空的 thoughts 数组
+- 只输出合法 JSON，不要 markdown，不要解释
+
+输出格式：
+{
+  "thoughts": [
+    {
+      "about": "self|name|colony|ideology|memory",
+      "aspect": "general|trust|affection|respect|fear|rivalry",
+      "sentiment": "positive|negative|neutral",
+      "text": "用 {pawn_name} 的口吻写的一句心里话",
+      "strength": 0.0-1.0
+    }
+  ]
+}</systemPromptTemplate>
+        <userPromptTemplate>Character: {pawn_name}
+Personality traits: {pawn_traits}
+
+Current thoughts of {pawn_name}:
+{existing_thoughts}
+
+Conversation transcript:
+{transcript}
+
+What thoughts did {pawn_name} form from this conversation?</userPromptTemplate>
+    </RimTalk.ExpandThoughts.ThoughtPromptDef>
+</Defs>

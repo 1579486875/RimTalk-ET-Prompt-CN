@@ -7,7 +7,8 @@ RimWorld 模组：把 [RimTalk - Expand Thoughts](https://steamcommunity.com/sha
 |---|---|
 | packageId | `gnh.cn.cys.rimtalk.etprompt.cn` |
 | 支持版本 | **RimWorld 1.6 / 1.7** |
-| 依赖（前置） | RimTalk - Expand Thoughts（`zruic.expand.thoughts`）、RimTalk（`cj.rimtalk`） |
+| 依赖（前置） | RimTalk - Expand Thoughts（`zruic.expand.thoughts`）—— **硬依赖**，`About.xml` 的 `modDependencies` 只声明它一个 |
+| 配套（非依赖） | RimTalk（`cj.rimtalk`）—— 它负责消费思绪，没装本模组也能加载，只是没人读。已用 `loadAfter` 保证排序 |
 | 类型 | 纯 XML，**不含程序集** |
 | 当前版本 | v1.0.1 |
 
@@ -23,7 +24,7 @@ Expand Thoughts 在每段对话结束后会**再调一次 LLM**，让模型归�
 
 ## 安装
 
-1. 先安装 **RimTalk** 与 **RimTalk - Expand Thoughts**（本模组的前置）
+1. 先安装 **RimTalk - Expand Thoughts**（本模组唯一的前置）；再装 **RimTalk** —— 它是消费方，不装的话提示词生效但没有东西去读
 2. 把本仓库整个目录放进 RimWorld 的 `Mods\` 目录；或从 Releases 下载压缩包解压进去
 3. 在游戏内模组列表里启用它。`About.xml` 已声明 `loadAfter`，游戏会自动把它排在 Expand Thoughts 之后
 
